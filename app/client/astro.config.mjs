@@ -2,7 +2,6 @@
 process.env.ASTRO_TELEMETRY_DISABLED = '1';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -16,7 +15,7 @@ if (realNodeModulesPath !== nodeModulesPath) {
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   vite: {
     plugins: [tailwindcss()],
     server: {
@@ -25,7 +24,4 @@ export default defineConfig({
       },
     },
   },
-  adapter: node({
-    mode: 'standalone'
-  }),
 });
