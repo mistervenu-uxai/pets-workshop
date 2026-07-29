@@ -4,6 +4,17 @@ import DogDetails from '../../components/DogDetails.astro';
 
 const API_SERVER_URL = process.env.API_SERVER_URL || 'http://localhost:5100';
 
+export async function getStaticPaths(){
+  try{
+    const res = await fetch(`${API_SERVER_URL}/api/dogs`);
+    if(!res.ok) return [];
+    const data = await res.json();
+    return data.dogs.map(d=>({ params: { id: String(d.id) } }));
+  }catch(e){
+    return [];
+  }
+}
+
 const { id } = Astro.params;
 const dogId = parseInt(id || '0');
 
